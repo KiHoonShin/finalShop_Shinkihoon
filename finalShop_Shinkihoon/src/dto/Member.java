@@ -55,6 +55,11 @@ public class Member {
 		this.memberName = memberName;
 	}
 
+	@Override
+	public String toString() {
+		return "[ memberNum ] " + "[ id ] " + "[ pw ]" +"[ memberName ]";
+	}
+
 	
 	
 }

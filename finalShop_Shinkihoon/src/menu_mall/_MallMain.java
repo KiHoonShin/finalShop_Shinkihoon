@@ -1,5 +1,7 @@
 package menu_mall;
 
+import java.util.ArrayList;
+
 import _mall.MenuCommand;
 import controller.MallController;
 import dao.FileDAO;
@@ -42,13 +44,13 @@ public class _MallMain implements MenuCommand {
 		System.out.println("====================");
 	}
 	
-	// 회원가입
-	void new_member() {
-		System.out.println("=====[ 회원가입 ]=====");
-		String id = con.getValue("아이디");
-	}
-	
-	// 아이디 체크
+//	// 회원가입
+//	void new_member() {
+//		System.out.println("=====[ 회원가입 ]=====");
+//		String id = con.getValue("아이디");
+//	}
+//	
+//	// 아이디 체크
 	
 	
 	
