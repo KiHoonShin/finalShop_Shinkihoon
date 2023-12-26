@@ -2,6 +2,8 @@ package controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+
 import _mall.MenuCommand;
 import dao.FileDAO;
 import menu_admin.AdminBoard;
@@ -27,7 +29,7 @@ public class MallController {
 		return instance;
 	}
 	
-
+	private Scanner sc = new Scanner(System.in);
 	private String loginId;
 	private String next;
 	private MenuCommand menuCom;
@@ -54,10 +56,10 @@ public class MallController {
 		mapCont.put("MallMain", new _MallMain());
 		mapCont.put("MallJoin", new MallJoin());
 		mapCont.put("MallLogin", new MallLogin());
-		mapCont.put("AdminBoard", new AdminBoard());
-		mapCont.put("AdminItem", new AdminItem());
-		mapCont.put("AdminMain", new _AdminMain());
-		mapCont.put("AdminMember", new AdminMember());
+		mapCont.put("AdminBoard", new AdminBoard()); // 관리자 쇼핑몰 관리
+		mapCont.put("AdminItem", new AdminItem()); // 관리자 쇼핑몰 관리
+		mapCont.put("AdminMain", new _AdminMain()); // 관리자 메인
+		mapCont.put("AdminMember", new AdminMember()); // 관리자 회원목록 관리
 		mapCont.put("MemberBoard", new MemberBoard());
 		mapCont.put("MemberCart", new MemberCart());
 		mapCont.put("MemberInfo", new MemberInfo());
@@ -83,5 +85,32 @@ public class MallController {
 			}
 		}
 	}
+	
+	// int 값 입력하기 
+	public int getValue(String msg, int start, int end) {
+		while(true) {
+			System.out.printf("▶ %s 입력[%d-%d] 입력 : " , msg, start, end);
+			try {
+				int sel = sc.nextInt();
+				sc.nextLine();
+				if(sel < start || sel > end) {
+					System.out.printf("[%d ~ %d] 입력하세요. %n" , start, end);
+					continue;
+				}
+				return sel;
+			} catch (Exception e) {
+				System.out.println("숫자만 입력하세요.");
+				sc.nextLine();
+			}
+		}
+	}
+	// ------------------------
+	// string 값 입력하기
+	public String getValue(String msg) {
+		System.out.printf("▶ %s   입력 : " , msg);
+		String input = sc.next();
+		return input;
+	}
+	// --------------------
 
 }

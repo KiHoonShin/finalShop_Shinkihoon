@@ -3,7 +3,10 @@ package dao;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -29,6 +32,8 @@ public class FileDAO {
 	
 	}
 
+	private static String CUR_PATH = System.getProperty("user.dir")+"\\src\\files\\";
+	
 	private FileDAO() {}
 
 	private static FileDAO instance = new FileDAO();
@@ -42,7 +47,7 @@ public class FileDAO {
 		try {
 			Files.createFile(path);
 		} catch (IOException e) {
-			//System.out.println("파일이 이미 있음");
+			System.out.println("파일이 이미 있음");
 		}
 	}
 
@@ -55,5 +60,22 @@ public class FileDAO {
 
 	}
 	
+	// 저장된 파일 data로 가져오기
+	 String roadFile(String fileName) {
+		try(FileReader fr = new FileReader(CUR_PATH+fileName);
+			BufferedReader br = new BufferedReader(fr)){
+			String data = "";
+			while(true) {
+				String line = br.readLine()+"\n";
+				if(line == null) break;
+				data += line;
+			}
+			return data;
+		} catch (IOException e) {
+			System.out.println("파일로드 실패");
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
