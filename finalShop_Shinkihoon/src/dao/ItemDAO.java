@@ -55,8 +55,19 @@ public class ItemDAO {
 	// 카테고리 출력
 	public void print_category() {
 		int idx = 1;
-		for(Item i : itemList) {
-			System.out.printf("[%d] %s %n",idx++ , i.getCategoryName());
+		ArrayList<String> name = new ArrayList<>();
+		name.add(itemList.get(0).getCategoryName());
+		String nnn = "";
+		for (Item i : itemList) {
+			for(String n : name) {
+				if(!i.getCategoryName().equals(n)) {
+					nnn = i.getCategoryName();
+					break;
+				}
+			}
+		}
+		for(String n : name) {
+			System.out.printf("[%d] %s %n", idx++, n);
 		}
 		System.out.println("[0] 뒤로가기");
 		//int sel = Util.getValue("메뉴", 0, 5)-1;
@@ -65,7 +76,8 @@ public class ItemDAO {
 	
 	// ~의 아이템 목록 
 	public void shoppingItem(int idx) {
-		System.out.println("[ "+itemList.get(idx).getCategoryName()+"의 아이템 목록 ]");
+		Item ii = itemList.get(idx);
+		System.out.println("[ "+ii.getCategoryName()+"의 아이템 목록 ]");
 		print_item(idx);
 	}
 	

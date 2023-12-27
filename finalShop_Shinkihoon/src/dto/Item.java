@@ -1,5 +1,7 @@
 package dto;
 
+import java.util.Objects;
+
 public class Item {
 	private static int num;
 	private int itemNum;
@@ -63,6 +65,7 @@ public class Item {
 		return "["+num+"] "+ categoryName;
 	}
 
+ 
 	
 	
 }
