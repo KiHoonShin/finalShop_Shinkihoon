@@ -15,6 +15,8 @@ public class Member {
 		this.memberName = memberName;
 	}
 
+	public Member() {}
+	
 	public static int getNum() {
 		return num;
 	}
@@ -57,7 +59,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "[ memberNum ] " + "[ id ] " + "[ pw ]" +"[ memberName ]";
+		return "[" + memberNum + "] " + "["+ id+ "] " + "["+ pw+ "]" +"["+ memberName+ "]";
 	}
 
 	

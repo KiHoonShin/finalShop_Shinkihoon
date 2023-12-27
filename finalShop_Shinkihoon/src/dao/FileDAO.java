@@ -16,6 +16,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import util.Util;
+
 public class FileDAO {
 
 
@@ -52,7 +54,7 @@ public class FileDAO {
 	}
 
 	private void init() {
-
+		
 		createFile(FileName.BOARD);
 		createFile(FileName.MEMBER);
 		createFile(FileName.ITEM);
@@ -61,14 +63,14 @@ public class FileDAO {
 	}
 	
 	// 저장된 파일 data로 가져오기
-	 String roadFile(String fileName) {
+	public String roadFile(String fileName) {
 		try(FileReader fr = new FileReader(CUR_PATH+fileName);
 			BufferedReader br = new BufferedReader(fr)){
 			String data = "";
 			while(true) {
-				String line = br.readLine()+"\n";
+				String line = br.readLine();
 				if(line == null) break;
-				data += line;
+				data += line+"\n";
 			}
 			return data;
 		} catch (IOException e) {

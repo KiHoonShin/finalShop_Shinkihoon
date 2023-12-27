@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import _mall.MenuCommand;
 import dao.FileDAO;
+import dao.ItemDAO;
+import dao.MemberDAO;
 import menu_admin.AdminBoard;
 import menu_admin.AdminItem;
 import menu_admin._AdminMain;
@@ -21,6 +23,7 @@ import menu_memeber.MemberQuit;
 import menu_memeber.MemberShopping;
 
 public class MallController {
+	
 	private MallController() {}
 
 	static private MallController instance = new MallController();
@@ -29,12 +32,13 @@ public class MallController {
 		return instance;
 	}
 	
-	private Scanner sc = new Scanner(System.in);
 	private String loginId;
 	private String next;
 	private MenuCommand menuCom;
 	public Map<String, MenuCommand> mapCont;
-
+	MemberDAO memberDAO = MemberDAO.getInstance();
+	ItemDAO itemDAO = ItemDAO.getInstance();
+	
 	public String getNext() {
 		return next;
 	}
@@ -66,7 +70,10 @@ public class MallController {
 		mapCont.put("MemberMain", new _MemberMain());
 		mapCont.put("MemberShopping", new MemberShopping());
 		mapCont.put("MemberQuit", new MemberQuit());
-
+		
+		memberDAO.roadToFile();
+		itemDAO.roadToItemFile();
+		
 		menuCom = mapCont.get("MallMain");
 		menuCom.init();
 		update();
@@ -86,31 +93,5 @@ public class MallController {
 		}
 	}
 	
-	// int 값 입력하기 
-	public int getValue(String msg, int start, int end) {
-		while(true) {
-			System.out.printf("▶ %s 입력[%d-%d] 입력 : " , msg, start, end);
-			try {
-				int sel = sc.nextInt();
-				sc.nextLine();
-				if(sel < start || sel > end) {
-					System.out.printf("[%d ~ %d] 입력하세요. %n" , start, end);
-					continue;
-				}
-				return sel;
-			} catch (Exception e) {
-				System.out.println("숫자만 입력하세요.");
-				sc.nextLine();
-			}
-		}
-	}
-	// ------------------------
-	// string 값 입력하기
-	public String getValue(String msg) {
-		System.out.printf("▶ %s   입력 : " , msg);
-		String input = sc.next();
-		return input;
-	}
-	// --------------------
 
 }

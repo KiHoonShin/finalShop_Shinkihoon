@@ -1,6 +1,7 @@
 package _mall;
 
 import controller.MallController;
+import dao.MemberDAO;
 
 public class _Main {
 

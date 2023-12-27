@@ -13,7 +13,7 @@ public class _AdminMain implements MenuCommand {
 	public void init() {
 		while(true) {
 			print_admin_menu();
-			int sel = con.getValue("메뉴", 0, 5);
+			int sel = Util.getValue("메뉴", 0, 5);
 			if(sel == 1) {
 				
 			} else if(sel == 2) {

@@ -9,17 +9,29 @@ import dao.ItemDAO;
 import util.Util;
 
 public class MemberShopping implements MenuCommand {
-
+	private MallController cont;
 
 	@Override
 	public void init() {
-
+		cont = MallController.getInstance();
+		System.out.println("======= 쇼핑몰에 오신것을 환영합니다 =======");
+		//System.out.println("[1] 과자\n[2] 생선\n[3] 음료\n[4] 고기\n[5] 과일\n[0] 뒤로가기");
 	}
 
 	@Override
 	public boolean update() {
-
+		ItemDAO dao = ItemDAO.getInstance();
+		dao.print_category();
+		int sel = Util.getValue("메뉴", 0, 5);
+		dao.shoppingItem(sel);
+		if(sel == 0) {
+			cont.setNext("MemberMain");
+		}
+		
 		return false;
 	}
 
+	
+	
+	
 }
