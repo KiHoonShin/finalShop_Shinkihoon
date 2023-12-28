@@ -23,7 +23,7 @@ public class MemberBoard implements MenuCommand{
 		System.out.println("===============================");
 		int sel = Util.getValue("메뉴", 0, 4);
 		if(sel == 1) {
-			
+			dao.print_boardTitleAll();
 		} else if(sel == 2) {
 			
 		} else if(sel == 3) {

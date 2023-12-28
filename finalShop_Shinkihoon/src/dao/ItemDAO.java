@@ -74,7 +74,7 @@ public class ItemDAO {
 			System.out.printf("[%d] %s %n", index++, n);
 		}
 		System.out.println("[0] 뒤로가기");
-		int sel = Util.getValue("메뉴", 0, 5);
+		int sel = Util.getValue("메뉴", 0, cnt);
 		if(sel == 0) {
 			return false;
 		}
