@@ -50,11 +50,11 @@ public class CartDAO {
 	}
 	
 	public void add_cartList(String id, int no, int count) {
-		cartList.add(new Cart(cnt, id, no, count));
 		cnt +=1;
-		for(Cart c : cartList) {
-			System.out.println(c);
-		}
+		cartList.add(new Cart(cnt, id, no, count));
+//		for(Cart c : cartList) {
+//			System.out.println(c);
+//		}
 	}
 	
 	

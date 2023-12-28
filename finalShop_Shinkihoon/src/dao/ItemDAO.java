@@ -129,10 +129,9 @@ public class ItemDAO {
 				}
 			}
 			// 아이템 개수 추가
-			maxNo +=1;
-			System.out.println("nn : " + nn + "  input : " + input + " price : " + price);
-			itemList.add(new Item(maxNo, nn, input, price));
 			this.cnt +=1;
+			System.out.println("nn : " + nn + "  input : " + input + " price : " + price);
+			itemList.add(new Item(cnt, nn, input, price));
 			
 			// -> cartdao에서 cart추가  메서드 만들기 !!!
 			// cartDAO에 num++, 아이디, 아이템번호, 수량 추가하기. 
