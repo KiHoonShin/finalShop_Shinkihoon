@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import _mall.MenuCommand;
+import dao.CartDAO;
 import dao.FileDAO;
 import dao.ItemDAO;
 import dao.MemberDAO;
@@ -38,6 +39,7 @@ public class MallController {
 	public Map<String, MenuCommand> mapCont;
 	MemberDAO memberDAO = MemberDAO.getInstance();
 	ItemDAO itemDAO = ItemDAO.getInstance();
+	CartDAO cartDAO = CartDAO.getInstance();
 	
 	public String getNext() {
 		return next;
@@ -73,6 +75,7 @@ public class MallController {
 		
 		memberDAO.roadToFile();
 		itemDAO.roadToItemFile();
+		cartDAO.roadToCartFile();
 		
 		menuCom = mapCont.get("MallMain");
 		menuCom.init();

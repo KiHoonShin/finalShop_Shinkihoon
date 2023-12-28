@@ -20,7 +20,18 @@ public class MemberCart implements MenuCommand {
 
 	@Override
 	public boolean update() {
-
+		ItemDAO itemDAO = ItemDAO.getInstance();
+		CartDAO dao = CartDAO.getInstance();
+		dao.print_cartList(cont.getLoginId() , itemDAO);
+		int sel = Util.getValue("메뉴", 0, 2);
+		if(sel == 1) {
+			cont.setNext("MemberShopping");
+		} else if(sel == 2) {
+			cont.setNext("MemberMain");
+		} else {
+			System.out.println("종료");
+			cont.setNext(null);
+		}
 		return false;
 	}
 

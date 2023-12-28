@@ -12,13 +12,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import controller.MallController;
 import dao.FileDAO.FileName;
 import dto.Board;
 import dto.Item;
 import util.Util;
 
 public class ItemDAO {
-	
 	ArrayList<Item> itemList = new ArrayList<>();
 	String fileName = FileName.ITEM.getName();
 	int maxNo;
@@ -53,43 +53,87 @@ public class ItemDAO {
 	}
 	
 	// 카테고리 출력
-	public void print_category() {
-		int idx = 1;
+	public boolean print_category() {
+		int index = 1;
 		ArrayList<String> name = new ArrayList<>();
 		name.add(itemList.get(0).getCategoryName());
-		String nnn = "";
-		for (Item i : itemList) {
-			for(String n : name) {
-				if(!i.getCategoryName().equals(n)) {
-					nnn = i.getCategoryName();
-					break;
+		for(int i = 1; i < itemList.size(); i++) {
+			int cnt = 0;
+			for(int k = 0; k < name.size();k++) {
+				if(itemList.get(i).getCategoryName().equals(name.get(k))) {
+					cnt +=1;
 				}
 			}
+			if(cnt == 0) {
+				name.add(itemList.get(i).getCategoryName());
+			}
 		}
+		
 		for(String n : name) {
-			System.out.printf("[%d] %s %n", idx++, n);
+			System.out.printf("[%d] %s %n", index++, n);
 		}
 		System.out.println("[0] 뒤로가기");
-		//int sel = Util.getValue("메뉴", 0, 5)-1;
+		int sel = Util.getValue("메뉴", 0, 5);
+		if(sel == 0) {
+			return false;
+		}
+		String nn = name.get(sel-1);
+		//Item ii = itemList.get(idx);
+		shoppingItem(nn);
+//		System.out.println("[ "+nn+"의 아이템 목록 ]");
+//		//print_item(idx);
+//		int cnt = 1;
+//		for(Item ii : itemList) {
+//			if(ii.getCategoryName().equals(nn)) {
+//				System.out.println("["+(cnt++)+"]"+ii.getItemName()+ "  " + ii.getPrice());
+//			}
+//		}
+		return true;
 		//System.out.println("[ "+itemList.get(sel).getCategoryName()+"의 아이템 목록 ]");
 	}
 	
 	// ~의 아이템 목록 
-	public void shoppingItem(int idx) {
-		Item ii = itemList.get(idx);
-		System.out.println("[ "+ii.getCategoryName()+"의 아이템 목록 ]");
-		print_item(idx);
-	}
-	
-	// 아이템 목록 출력
-	void print_item(int idx) {
+	public void shoppingItem(String nn) {
+		System.out.println("[ "+nn+"의 아이템 목록 ]");
 		int cnt = 1;
 		for(Item ii : itemList) {
-			if(ii.getCategoryName().equals(itemList.get(idx).getCategoryName())) {
+			if(ii.getCategoryName().equals(nn)) {
 				System.out.println("["+(cnt++)+"]"+ii.getItemName()+ "  " + ii.getPrice());
 			}
 		}
+		while(true) {
+		String input = Util.getValue("구매 아이템 이름");
+		int validCount = 0;
+		for(Item ii : itemList) {
+			if(ii.getCategoryName().equals(nn)) {  
+				if(ii.getItemName().contains(input)) {
+					validCount += 1;
+				} 
+			}
+		}
+		if(validCount == 0) {
+			System.out.println("아이템 이름 오류 - 다시 입력 해주세요");
+			continue;
+		} else {
+			int count = Util.getValue("아이템 구매 수량", 1, 100);
+			System.out.println("[ "+input +" "+ count +"개 구매 완료 ]");
+			break;
+		}
+		} //while
 	}
+	
+	
+	
+	
+////	// 아이템 목록 출력
+//	void print_item(String nn) {
+//		int cnt = 1;
+//		for(Item ii : itemList) {
+//			if(ii.getCategoryName().equals(nn)) {
+//				System.out.println("["+(cnt++)+"]"+ii.getItemName()+ "  " + ii.getPrice());
+//			}
+//		}
+//	}
 	
 	
 	

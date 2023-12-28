@@ -21,12 +21,18 @@ public class MemberShopping implements MenuCommand {
 	@Override
 	public boolean update() {
 		ItemDAO dao = ItemDAO.getInstance();
-		dao.print_category();
-		int sel = Util.getValue("메뉴", 0, 5);
-		dao.shoppingItem(sel);
-		if(sel == 0) {
+		if(!dao.print_category()) {
 			cont.setNext("MemberMain");
+		} else {
+			cont.setNext("MemberCart");
 		}
+		//dao.print_category();
+		//int sel = Util.getValue("메뉴", 0, 5);
+//		if(sel == 0) {
+//			cont.setNext("MemberMain");
+//		} else {
+//			dao.shoppingItem(sel);
+//		}
 		
 		return false;
 	}
