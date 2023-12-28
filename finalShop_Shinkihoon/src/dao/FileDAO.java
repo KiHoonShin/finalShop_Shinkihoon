@@ -74,6 +74,7 @@ public class FileDAO {
 			}
 			return data;
 		} catch (IOException e) {
+			System.out.println(CUR_PATH);
 			System.out.println("파일로드 실패");
 			e.printStackTrace();
 		}

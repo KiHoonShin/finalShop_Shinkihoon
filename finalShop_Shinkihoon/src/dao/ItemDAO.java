@@ -120,9 +120,11 @@ public class ItemDAO {
 			System.out.println("[ "+input +" "+ count +"개 구매 완료 ]");
 			
 			int price = 0;
+			int no = 0;
 			for(Item i : itemList) {
 				if(i.getItemName().equals(input)) {
 					price = i.getPrice();
+					no = i.getItemNum();
 					break;
 				}
 			}
@@ -134,12 +136,13 @@ public class ItemDAO {
 			
 			// -> cartdao에서 cart추가  메서드 만들기 !!!
 			// cartDAO에 num++, 아이디, 아이템번호, 수량 추가하기. 
-			cartDAO.cartList.add(new Cart(++cartDAO.maxNo, id, maxNo, count));
-			cartDAO.cnt += 1;
+//			cartDAO.cartList.add(new Cart(++cartDAO.maxNo, id, maxNo, count));
+//			cartDAO.cnt += 1;
+			
 //			for(Item i : itemList) {
 //				System.out.println(i.getItemNum()+" "+i.getCategoryName() +" " + i.getItemName());
 //			}
-			
+			cartDAO.add_cartList(id, no, count);
 			break;
 		}
 		} //while

@@ -49,6 +49,14 @@ public class CartDAO {
 		}
 	}
 	
+	public void add_cartList(String id, int no, int count) {
+		cartList.add(new Cart(cnt, id, no, count));
+		cnt +=1;
+		for(Cart c : cartList) {
+			System.out.println(c);
+		}
+	}
+	
 	
 	// 카트리스트 출력
 	public void print_cartList(String log , ItemDAO itemDAO) {
