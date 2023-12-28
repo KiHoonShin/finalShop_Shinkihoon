@@ -79,7 +79,7 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "( "+boardNum+") "+"[ 제목 : " + title + "\t"+ "작성자 : " + id + "\t" + "날짜 : " + date + "조회수 : "+hits + "]";
+		return "( "+boardNum+") "+"[ 제목 : " + title + "\t"+ "작성자 : " + id + "\t" + "날짜 : " + date + "   조회수 : "+hits + "]";
 	}
 
 	

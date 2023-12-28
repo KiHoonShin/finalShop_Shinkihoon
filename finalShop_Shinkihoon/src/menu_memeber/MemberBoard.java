@@ -25,9 +25,9 @@ public class MemberBoard implements MenuCommand{
 		if(sel == 1) {
 			dao.print_boardTitleAll();
 		} else if(sel == 2) {
-			
+			dao.plus_board(cont.getLoginId());
 		} else if(sel == 3) {
-			
+			dao.my_board(cont.getLoginId());
 		} else if(sel == 4) {
 			
 		} else {

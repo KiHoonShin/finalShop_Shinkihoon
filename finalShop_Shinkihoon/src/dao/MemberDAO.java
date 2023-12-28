@@ -10,16 +10,11 @@ import dto.Member;
 import util.Util;
 
 public class MemberDAO {
-	//MallController con = MallController.getInstance();
 	
 	ArrayList<Member> memberList = new ArrayList<>();
-//	FileDAO fileDAO = FileDAO.getInstance();
 	int maxNo = 1000;
 	int cnt;
 	
-//	final String boardName = FileName.BOARD.getName();
-//	final String cartName = FileName.CART.getName();
-//	final String itemName = FileName.ITEM.getName();
 	final String memberName = FileName.MEMBER.getName();
 	
 	private MemberDAO(){
@@ -89,7 +84,41 @@ public class MemberDAO {
 		}
 	}
 	
+	// 아이디가 같을때 내 정보 출력
+	public void print_member(String log) {
+		for(Member m : memberList) {
+			if(m.getId().equals(log))
+			System.out.println(m);
+		}
+	}
 	
+	// 나의정보 비밀번호 수정
+	public void modificate_my_info(String log) {
+		Member mm = null;
+		for(Member m : memberList) {
+			if(m.getId().equals(log)) {
+				mm = m;
+				break;
+			}
+		}
+			String pw = Util.getValue("패스워드");
+			if(!isValidPw(mm, pw)) return;
+	}
 	
+	// 패스워드 일치하는지
+	private boolean isValidPw(Member mm , String pw) {
+		if(!pw.equals(mm.getPw())) {
+			System.out.println("비밀번호가 틀렸습니다");
+			return false;
+		}
+		String newPw = Util.getValue("신규 패스워드");
+		if(pw.equals(newPw)) {
+			System.out.println("다른 비밀번호를 입력해주세요");
+			return false;
+		}
+		System.out.println("비밀번호 변경 완료");
+		mm.setPw(newPw);
+		return true;
+	}
 	
 }

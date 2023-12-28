@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import dao.FileDAO.FileName;
@@ -59,8 +60,8 @@ public class BoardDAO {
 			System.out.printf("총 게시글 %d 개 %n", cnt);
 			System.out.printf("현재 페이지 [%d / %d] %n", curPage, allPage);
 			for(int i = startRow; i < endRow; i+=1) {
-				boardList.get(i).setNum(num);
-				num += 1;
+			//	boardList.get(i).setNum(num);
+			//	num += 1;
 				System.out.println(boardList.get(i));
 			}
 			System.out.println("[1]이전\n[2]이후\n[3]게시글보기\n[0]종료");
@@ -82,9 +83,17 @@ public class BoardDAO {
 			} else if(sel == 3) {
 				int input = Util.getValue("게시글 번호",startRow+1 ,endRow )-1;
 				for(int i = startRow; i < endRow; i+=1) {
-					if(boardList.get(i).getBoradNum() == input) {
+					if(i == input) {
+						int hit = boardList.get(i).getHits();
+						hit+=1;
+						boardList.get(i).setHits(hit);
 						System.out.println(boardList.get(i));
-						break;
+						System.out.println("-------------");
+						System.out.println(boardList.get(i).getContents());
+						System.out.println();
+						System.out.println();
+						System.out.println();
+						return;
 					}
 				}
 			} else {
@@ -93,7 +102,51 @@ public class BoardDAO {
 		} //while
 	}
 	
+	public void my_board(String log) {
+		for(Board b : boardList) {
+			if(b.getId().equals(log)) {
+				System.out.println(b);
+				System.out.println(b.getContents());
+				System.out.println("----------------------------------------");
+			}
+		}
+		System.out.println("[1]삭제\n[0]돌아가기");
+		int sel = Util.getValue("", 0, 1);
+		if(sel == 0) {
+			return;
+		} else {
+			int delNum = Util.getValue("삭제할 게시글 번호", 1 , cnt)-1;
+			if(!boardList.get(delNum).getId().equals(log)) {
+				System.out.println("본인 게시글만 삭제하실 수 있습니다.");
+				return;
+			}
+			for(int i = 0; i < boardList.size(); i+=1) {
+				if(i == delNum) {
+					boardList.remove(delNum);
+				}
+			}
+			this.cnt -=1;
+			System.out.println("게시글 삭제 완료");
+			int cnt = 1;
+			for(Board b : boardList) {
+				b.setBoradNum(cnt++);
+				System.out.println(b);
+				maxNo = cnt;
+				}
+			return;
+		}
+	}
 	
-	
+	public void plus_board(String log) {
+		String id = log;
+		System.out.println("[ 게시글 추가하기 ]");
+		String title = Util.getValue("게시글 제목");
+		String contents = Util.getValue("게시글 내용");
+		LocalDate now = LocalDate.now();
+		String date = now.toString();
+		boardList.add(new Board(++maxNo, title, contents, id, date, 1));
+		cnt +=1;
+		System.out.println(boardList.get(maxNo-1));
+	}
 	
 }
