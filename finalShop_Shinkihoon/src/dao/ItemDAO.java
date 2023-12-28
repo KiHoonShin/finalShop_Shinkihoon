@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import controller.MallController;
 import dao.FileDAO.FileName;
 import dto.Board;
+import dto.Cart;
 import dto.Item;
 import util.Util;
 
@@ -53,7 +54,7 @@ public class ItemDAO {
 	}
 	
 	// 카테고리 출력
-	public boolean print_category() {
+	public boolean print_category(CartDAO cartDAO , String log) {
 		int index = 1;
 		ArrayList<String> name = new ArrayList<>();
 		name.add(itemList.get(0).getCategoryName());
@@ -79,7 +80,7 @@ public class ItemDAO {
 		}
 		String nn = name.get(sel-1);
 		//Item ii = itemList.get(idx);
-		shoppingItem(nn);
+		shoppingItem(nn , cartDAO , log);
 //		System.out.println("[ "+nn+"의 아이템 목록 ]");
 //		//print_item(idx);
 //		int cnt = 1;
@@ -93,7 +94,7 @@ public class ItemDAO {
 	}
 	
 	// ~의 아이템 목록 
-	public void shoppingItem(String nn) {
+	public void shoppingItem(String nn , CartDAO cartDAO , String id) {
 		System.out.println("[ "+nn+"의 아이템 목록 ]");
 		int cnt = 1;
 		for(Item ii : itemList) {
@@ -117,9 +118,33 @@ public class ItemDAO {
 		} else {
 			int count = Util.getValue("아이템 구매 수량", 1, 100);
 			System.out.println("[ "+input +" "+ count +"개 구매 완료 ]");
+			
+			int price = 0;
+			for(Item i : itemList) {
+				if(i.getItemName().equals(input)) {
+					price = i.getPrice();
+					break;
+				}
+			}
+			// 아이템 개수 추가
+			maxNo +=1;
+			System.out.println("nn : " + nn + "  input : " + input + " price : " + price);
+			itemList.add(new Item(maxNo, nn, input, price));
+			this.cnt +=1;
+			
+			// -> cartdao에서 cart추가  메서드 만들기 !!!
+			// cartDAO에 num++, 아이디, 아이템번호, 수량 추가하기. 
+			cartDAO.cartList.add(new Cart(++cartDAO.maxNo, id, maxNo, count));
+			cartDAO.cnt += 1;
+//			for(Item i : itemList) {
+//				System.out.println(i.getItemNum()+" "+i.getCategoryName() +" " + i.getItemName());
+//			}
+			
 			break;
 		}
 		} //while
+		
+		
 	}
 	
 	

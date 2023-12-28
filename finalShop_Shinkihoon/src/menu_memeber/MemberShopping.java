@@ -21,7 +21,8 @@ public class MemberShopping implements MenuCommand {
 	@Override
 	public boolean update() {
 		ItemDAO dao = ItemDAO.getInstance();
-		if(!dao.print_category()) {
+		CartDAO cartDAO = CartDAO.getInstance();
+		if(!dao.print_category(cartDAO , cont.getLoginId())) {
 			cont.setNext("MemberMain");
 		} else {
 			cont.setNext("MemberCart");
