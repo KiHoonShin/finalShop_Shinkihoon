@@ -54,13 +54,82 @@ public class FileDAO {
 	}
 
 	private void init() {
-		
 		createFile(FileName.BOARD);
 		createFile(FileName.MEMBER);
 		createFile(FileName.ITEM);
 		createFile(FileName.CART);
-
 	}
+	
+	public void saveAllFile(MemberDAO memberDAO, ItemDAO itemDAO, CartDAO cartDAO, BoardDAO boardDAO) {
+		saveMemberFile(memberDAO);
+		saveItemFile(itemDAO);
+		saveCartFile(cartDAO);
+		saveBoardFile(boardDAO);
+	}
+	
+	
+	// 멤버 파일 저장하기
+	public void saveMemberFile(MemberDAO memberDAO) {
+		try(FileWriter fw = new FileWriter(CUR_PATH+"member.txt")){
+			String data = "";
+			for(int i = 0; i < memberDAO.memberList.size(); i+=1) {
+				data += memberDAO.memberList.get(i).getMemberNum()+"/"+memberDAO.memberList.get(i).getId()+
+						"/" + memberDAO.memberList.get(i).getPw() + "/" +memberDAO.memberList.get(i).getMemberName()+"\n";
+			}
+			fw.write(data);
+			System.out.println("member 파일 저장 성공" );
+		} catch (IOException e) {
+			System.out.println("파일 저장 실패");
+		}
+	}
+	
+	// 아이템 파일 저장하기
+	public void saveItemFile(ItemDAO itemDAO) {
+		try(FileWriter fw = new FileWriter(CUR_PATH+"item.txt")){
+			String data = "";
+			for(int i = 0; i < itemDAO.itemList.size(); i+=1) {
+				data += itemDAO.itemList.get(i).getItemNum()+"/"+itemDAO.itemList.get(i).getCategoryName()+
+						"/" + itemDAO.itemList.get(i).getItemName() + "/" +itemDAO.itemList.get(i).getPrice()+"\n";
+			}
+			fw.write(data);
+			System.out.println("item 파일 저장 성공" );
+		} catch (IOException e) {
+			System.out.println("파일 저장 실패");
+		}
+	}
+	
+	// cart파일 저장
+	public void saveCartFile(CartDAO cartDAO) {
+		try(FileWriter fw = new FileWriter(CUR_PATH+"cart.txt")){
+			String data = "";
+			for(int i = 0; i < cartDAO.cartList.size(); i+=1) {
+				data += cartDAO.cartList.get(i).getCartNum()+"/"+cartDAO.cartList.get(i).getId()+
+						"/" + cartDAO.cartList.get(i).getItemNum()+ "/" +cartDAO.cartList.get(i).getItemCnt()+"\n";
+			}
+			fw.write(data);
+			System.out.println("cart 파일 저장 성공" );
+		} catch (IOException e) {
+			System.out.println("파일 저장 실패");
+		}
+	}
+	
+	// board 파일 저장
+	public void saveBoardFile(BoardDAO boardDAO) {
+		try(FileWriter fw = new FileWriter(CUR_PATH+"board.txt")){
+			String data = "";
+			for(int i = 0; i < boardDAO.boardList.size(); i+=1) {
+				data += boardDAO.boardList.get(i).getBoradNum()+"/"+boardDAO.boardList.get(i).getTitle()+
+						"/" + boardDAO.boardList.get(i).getContents()+ "/" +boardDAO.boardList.get(i).getDate()+"/"+ boardDAO.boardList.get(i).getHits()+"\n";
+			}
+			fw.write(data);
+			System.out.println("board 파일 저장 성공" );
+		} catch (IOException e) {
+			System.out.println("파일 저장 실패");
+		}
+	}
+	
+	
+	
 	
 	// 저장된 파일 data로 가져오기
 	public String roadFile(String fileName) {

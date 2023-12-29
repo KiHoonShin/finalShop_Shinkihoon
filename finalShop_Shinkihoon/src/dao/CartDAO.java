@@ -110,5 +110,15 @@ public class CartDAO {
 	}
 	
 	
+	// 로그인 -> 회원 탈퇴
+	public void quit_member(String log) {
+		for(int i = 0; i < cartList.size(); i+=1) {
+			if(cartList.get(i).getId().equals(log)) {
+				cartList.remove(i);
+				this.cnt -=1;
+				i -=1;
+			}
+		}
+	}
 	
 }

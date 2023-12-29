@@ -1,5 +1,7 @@
 package dao;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import controller.MallController;
@@ -174,4 +176,34 @@ public class MemberDAO {
 		return -1;
 	}
 	
+	// 로그인 -> 회원 탈퇴
+	public void quit_member(String log , CartDAO cartDAO) {
+		for(int i = 0; i < memberList.size(); i+=1) {
+			if(log.equals(memberList.get(i).getId())) {
+				memberList.remove(i);
+			}
+		}
+		cartDAO.quit_member(log);
+		System.out.println("회원 구매 내역 삭제 완료");
+		System.out.println("탈퇴 완료");
+		this.cnt -=1;
+	}
+	
+//	// 멤버 파일 저장
+//	public void saveMemberFile() {
+//		try(FileWriter fw = new FileWriter(CUR_PATH+FileName.MEMBER)){
+//			String data = "";
+//			for(Member mm : memberList) {
+//				data += mm.getMemberNum()+"/"+mm.getId()+"/"+mm.getPw() +mm.getMemberName()+"\n";
+//			}
+////			for(int i = 0; i < memberDAO.memberList.size(); i+=1) {
+////				data += memberDAO.memberList.get(i).getMemberNum()+"/"+memberDAO.memberList.get(i).getId()+
+////						"/" + memberDAO.memberList.get(i).getPw() + "/" +memberDAO.memberList.get(i).getMemberName()+"\n";
+////			}
+//			fw.write(data);
+//			System.out.println("member 파일 저장 성공" );
+//		} catch (IOException e) {
+//			System.out.println("파일 저장 실패");
+//		}
+//	}
 }

@@ -207,4 +207,59 @@ public class ItemDAO {
 		System.out.println("[ 아이템 삭제 완료 ]");
 	}
 	
+	// 판매된 아이템 목록
+	public void print_sold_item(CartDAO cartDAO) {
+		System.out.println("========= 판매된 아이템 목록 ========");
+		Map<String, Integer> list = new HashMap<>();
+		for (Cart c : cartDAO.cartList) {
+			for (Item ii : itemList) {
+				if(c.getItemNum() == ii.getItemNum()) {
+					list.put(ii.getItemName(), ii.getItemNum());
+				}
+			}
+		}
+		System.out.println(list);
+		
+		ArrayList<Item> newItemList = new ArrayList<>();
+		
+		Set<String> listKeys = list.keySet();
+		ArrayList<Item> tempItemList = (ArrayList<Item>) itemList.clone();
+//		for(String s : listKeys) {
+//			int cnt = 0;
+//			for(Cart c : cartDAO.cartList) {
+//				if(list.get(s) == c.getItemNum()) {
+//					cnt += c.getItemCnt();
+//					for(Item ii : newItemList) {
+//						if(c.getItemNum() == ii.getItemNum()) {
+//							break;
+//						} else {
+//							
+//						}
+//						
+//					}//i
+//				}
+//			}
+//		}
+		
+		
+		
+		
+		LinkedHashSet<Item> linkedHashSet = new LinkedHashSet<>();
+		
+		for(Cart c : cartDAO.cartList) {
+			int num = 0;
+		for(Item ii : itemList) {
+			if(c.getItemNum() == ii.getItemNum())
+		//		num += c.getItemCnt();
+		//	ii.setSoldItemCnt(num);
+			linkedHashSet.add(ii);
+		}
+		}
+		
+		Iterator iter = linkedHashSet.iterator();
+		while(iter.hasNext()) {
+			System.out.println(iter.next());
+		}
+	}
+	
 }

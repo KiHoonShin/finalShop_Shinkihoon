@@ -9,6 +9,7 @@ public class Item implements Comparable<Item>{
 	private String categoryName;
 	private String itemName;
 	private int price;
+	private int soldItemCnt; // 판매된 아이템 수
 	
 	public Item(){
 	}
@@ -21,6 +22,16 @@ public class Item implements Comparable<Item>{
 		this.price = price;
 	}
 
+//	public Item(int itemNum, String categoryName, String itemName, int price , int soldItemCnt) {
+//		super();
+//		this.soldItemCnt = soldItemCnt;
+//		this.categoryName = categoryName;
+//		this.itemName = itemName;
+//		this.price = price;
+//		this.itemNum = itemNum;
+//	}
+	
+	
 	public static int getNum() {
 		return num;
 	}
@@ -59,6 +70,14 @@ public class Item implements Comparable<Item>{
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+	public int getSoldItemCnt() {
+		return soldItemCnt;
+	}
+
+	public void setSoldItemCnt(int soldItemCnt) {
+		this.soldItemCnt = soldItemCnt;
 	}
 
 	@Override

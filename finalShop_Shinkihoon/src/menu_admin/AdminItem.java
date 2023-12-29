@@ -21,6 +21,7 @@ public class AdminItem implements MenuCommand {
 	@Override
 	public boolean update() {
 		cont = MallController.getInstance();
+		CartDAO cartDAO = CartDAO.getInstance();
 		ItemDAO dao = ItemDAO.getInstance();
 		System.out.println("[1] 아이템 추가\n[2] 아이템 삭제\n[3] 총 매출 아이템"
 				+ "개수 출력(판매량 높은순으로)\n[4] 뒤로가기\n[0] 종료");
@@ -33,6 +34,10 @@ public class AdminItem implements MenuCommand {
 			dao.add_item();
 		} else if(sel == 2) {
 			dao.del_item();
+		} else if(sel == 3) {
+			dao.print_sold_item(cartDAO);
+		} else if(sel == 4) {
+			cont.setNext("AdminMain");
 		}
 		return false;
 	}

@@ -149,4 +149,22 @@ public class BoardDAO {
 		System.out.println(boardList.get(maxNo-1));
 	}
 	
+	// 게시글 삭제
+	public void remove_board() {
+		int delNum = Util.getValue("삭제할 게시글 번호", 1, maxNo);
+		for(int i = 0; i < boardList.size(); i+=1) {
+			if(boardList.get(i).getBoradNum() == delNum) {
+				boardList.remove(i);
+			}
+		}
+		this.cnt -=1;
+		
+		// 보드넘 재할당
+		int bNum = 1;
+		for(int i = 0; i < boardList.size(); i+=1) {
+			boardList.get(i).setBoradNum(bNum);
+			bNum+=1;
+		}
+		System.out.println("게시글 삭제 완료");
+	}
 }
