@@ -121,4 +121,57 @@ public class MemberDAO {
 		return true;
 	}
 	
+	// 멤버 전체 출력
+	public void print_all() {
+		System.out.println("==== 전체 회원 목록 ====");
+		for(Member m : memberList) {
+			System.out.println(m);
+		}
+	}
+	
+	// 회원 삭제 (admin)
+	public void del_member() {
+		System.out.println("회원 삭제시 구매 내역이 사라집니다");
+		String id = Util.getValue("삭제할 회원 아이디");
+		if(!id_check(id)) {
+			System.out.println("삭제 실패");
+			return;
+		}
+		System.out.println("삭제 완료");
+	}
+	
+	
+	// 관리자메뉴 전용 아이디 체크
+	public boolean id_check(String id) {
+		if(id.equals("admin")) {
+			System.out.println("관리자 회원 삭제 불가능");
+			return false;
+		}
+		Member m = getMemberById(id);
+		if(m == null) {
+			System.out.println("존재하지 않는 아이디");
+			return false;
+		}
+		 int delIdx = delIdx(m);
+		for(int i = 0; i < memberList.size(); i+=1) {
+			if(i == delIdx) {
+				memberList.remove(delIdx);
+			}
+		}
+		this.cnt -=1;
+		System.out.println("회원 구매 내역 삭제 완료");
+		return true;
+	}
+	
+	private int delIdx(Member m) {
+		int idx = 0;
+		for(Member mm : memberList) {
+			if(m == mm) {
+				return idx;
+			}
+			idx+=1;
+		}
+		return -1;
+	}
+	
 }

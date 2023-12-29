@@ -149,19 +149,62 @@ public class ItemDAO {
 		
 	}
 	
+//	// 아이템 목록 출력
+	public void print_item() {
+		System.out.println("======= 카테고리별 아이템 목록 =======");
+		int itemCnt = 1;
+		for(Item ii : itemList) {
+			// ii.setItemNum(itemCnt++); -> 판매된 아이템 에서 추가
+			maxNo = ii.getItemNum();
+		}
+		ArrayList<Item> tempItemList = (ArrayList<Item>) itemList.clone();
+		Collections.sort(tempItemList);
+		for(Item tt : tempItemList) {
+			System.out.println(tt);
+		}
+	}
 	
+	// admin 아이템 추가
+	public void add_item() {
+		String item = Util.getValue("아이템");
+		if(!isValidName(item)) {
+			System.out.println("이미 있는 카테고리/아이템 이름 입니다");
+			return;
+		}
+		String cateName = Util.getValue("카테고리");
+		if(!isValidName(cateName)) {
+			System.out.println("이미 있는 카테고리/아이템 이름 입니다");
+			return;
+		}
+		int newPrice = Util.getValue("가격", 100, 1000000);
+		itemList.add(new Item(++maxNo, cateName, item, newPrice));
+		cnt +=1;
+		System.out.println("아이템 추가 완료");
+	}
 	
+	// 이미 있는 카테고리/아이템 체크
+	private boolean isValidName(String name) {
+		for(Item ii : itemList) {
+			if(name.equals(ii.getCategoryName())) {
+				return false;
+			}
+			if(name.equals(ii.getItemName())) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
-////	// 아이템 목록 출력
-//	void print_item(String nn) {
-//		int cnt = 1;
-//		for(Item ii : itemList) {
-//			if(ii.getCategoryName().equals(nn)) {
-//				System.out.println("["+(cnt++)+"]"+ii.getItemName()+ "  " + ii.getPrice());
-//			}
-//		}
-//	}
-	
-	
+	// admin - 아이템 삭제
+	public void del_item() {
+		System.out.println("[ 아이템 삭제시 구매 내역이 사라집니다 ]");
+		int sel = Util.getValue("삭제할 아이템 번호", 1, maxNo)-1;
+		for(int i = 0; i < itemList.size(); i+=1) {
+			if(i == sel) {
+				itemList.remove(sel);
+			}
+		}
+		System.out.println("[ 아이템 삭제 완료 ]");
+	}
 	
 }

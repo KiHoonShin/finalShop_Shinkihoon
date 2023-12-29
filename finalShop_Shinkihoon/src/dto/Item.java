@@ -2,7 +2,8 @@ package dto;
 
 import java.util.Objects;
 
-public class Item {
+
+public class Item implements Comparable<Item>{
 	private static int num;
 	private int itemNum;
 	private String categoryName;
@@ -61,9 +62,22 @@ public class Item {
 	}
 
 	@Override
-	public String toString() {
-		return "["+num+"] "+ categoryName;
+	public int compareTo(Item o) {
+		if(categoryName.compareTo(o.categoryName) > 0) {
+			return 1;
+		} else if(categoryName.compareTo(o.categoryName) < 0) {
+			return -1;
+		} else {
+			return itemName.compareTo(o.itemName);
+		}
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "[%-3d] [%4s] [%5s] [%10d원]".formatted(itemNum,categoryName,itemName,price);
+	}
+
 
  
 	

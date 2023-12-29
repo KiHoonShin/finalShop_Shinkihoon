@@ -34,7 +34,7 @@ public class FileDAO {
 	
 	}
 
-	private static String CUR_PATH = System.getProperty("user.dir")+"\\finalShop_Shinkihoon\\src\\files\\";
+	private static String CUR_PATH = System.getProperty("user.dir")+"\\src\\files\\";
 	
 	private FileDAO() {}
 

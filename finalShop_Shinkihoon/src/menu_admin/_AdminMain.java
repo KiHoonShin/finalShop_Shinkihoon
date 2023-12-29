@@ -7,17 +7,18 @@ import util.Util;
 
 public class _AdminMain implements MenuCommand {
 	
-	MallController con = MallController.getInstance();
+	private MallController cont; 
 	
 	@Override
 	public void init() {
-		while(true) {
+		cont = MallController.getInstance();
+		//while(true) {
 			print_admin_menu();
 			int sel = Util.getValue("메뉴", 0, 5);
 			if(sel == 1) {
-				
+				cont.setNext("AdminMember");
 			} else if(sel == 2) {
-				
+				cont.setNext("AdminItem");
 			} else if(sel == 3) {
 				
 			} else if(sel == 4) {
@@ -26,10 +27,10 @@ public class _AdminMain implements MenuCommand {
 				
 			} else {
 				System.out.println("종료합니다.");
-				con.setNext(null);
+				cont.setNext(null);
 				return;
 			}
-		}
+		//}
 	}
 
 	@Override
